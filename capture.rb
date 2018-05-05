@@ -8,6 +8,7 @@ class Capture < Sinatra::Base
 
   configure do
     set :redis, Redis.new
+    set :public_folder, File.expand_path('dist')
   end
 
   def redis
@@ -22,12 +23,6 @@ class Capture < Sinatra::Base
     delete(url, &block)
   end
 
-  get '/' do
-    requests = redis.lrange(REDIS_LIST, 0, 20).map do |req|
-      JSON.parse(req)
-    end
-    erb :index, locals: { requests: requests }
-  end
 
   match_all '/c/*' do
     body = request.env['rack.input'].read
@@ -49,5 +44,9 @@ class Capture < Sinatra::Base
     redis.ltrim REDIS_LIST, 0, 19
 
     200
+  end
+
+  get '*' do
+    send_file 'dist/index.html'
   end
 end
