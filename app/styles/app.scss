@@ -1,0 +1,37 @@
+@import "picnic";
+
+.c-request {
+  max-width: 1000px;
+  margin: 0 auto;
+  margin-bottom: 2rem;
+
+  &__method {
+    &--GET {
+      color: $green;
+    }
+    &--POST {
+      color: $blue;
+    }
+    &--PUT {
+      color: $yellow;
+    }
+    &--PATCH {
+      color: $teal;
+    }
+    &--DELETE {
+      color: $red;
+    }
+  }
+
+  &__headers {
+    display: table;
+    width: 100%;
+  }
+
+  &__body {
+    pre {
+      margin: 0;
+      padding: 2rem 0.6rem;
+    }
+  }
+}

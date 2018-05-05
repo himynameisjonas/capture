@@ -1,6 +1,12 @@
 {{#each model as |request|}}
-  <div class="c-request">
-    <h2>{{request.method}}: {{request.path}}</h2>
+  <div class="c-request card">
+    <header>
+      <h2>
+        <code class="c-request__method c-request__method--{{request.method}}">{{request.method}}</code>
+        {{request.path}}
+      </h2>
+    </header>
+
     <table class="c-request__headers">
       {{#each-in request.headers as |header value|}}
         <tr>
@@ -9,9 +15,13 @@
         </tr>
       {{/each-in}}
     </table>
-    <div class="c-request__body">
-      {{request.body}}
-    </div>
+
+    {{#if request.body}}
+      <div class="c-request__body">
+        <pre><code>{{request.body}}</code></pre>
+      </div>
+    {{/if}}
   </div>
 {{/each}}
+
 {{outlet}}
