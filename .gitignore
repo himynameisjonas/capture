@@ -1,0 +1,4 @@
+.byebug_history
+.sass-cache
+public/stylesheets/*.css
+public/stylesheets/*.map
