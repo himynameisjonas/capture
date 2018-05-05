@@ -1,0 +1,17 @@
+{{#each model as |request|}}
+  <div class="c-request">
+    <h2>{{request.method}}: {{request.path}}</h2>
+    <table class="c-request__headers">
+      {{#each-in request.headers as |header value|}}
+        <tr>
+          <th>{{header}}</th>
+          <td>{{value}}</td>
+        </tr>
+      {{/each-in}}
+    </table>
+    <div class="c-request__body">
+      {{request.body}}
+    </div>
+  </div>
+{{/each}}
+{{outlet}}
