@@ -4,6 +4,11 @@
       <h2>
         <code class="c-request__method c-request__method--{{request.method}}">{{request.method}}</code>
         {{request.path}}
+        <small>
+          <time datetime={{request.receivedAt}}>
+            {{moment-format request.receivedAt 'YYYY-MM-DD HH:mm:ss'}}
+          </time>
+        </small>
       </h2>
     </header>
 

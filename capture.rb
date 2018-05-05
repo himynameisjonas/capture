@@ -31,11 +31,17 @@ class Capture < Sinatra::Base
     def path
       @json['path']
     end
+
+    def received_at
+      @json['received_at']
+    end
   end
 
   class RequestSerializer
     include FastJsonapi::ObjectSerializer
-    attributes :headers, :body, :method, :path
+    set_key_transform :dash
+
+    attributes :headers, :body, :method, :path, :received_at
   end
 
   configure do
@@ -72,7 +78,8 @@ class Capture < Sinatra::Base
       headers: headers,
       body: body,
       method: request.request_method,
-      path: request.path_info
+      path: request.path_info,
+      received_at: Time.now.utc,
     }.to_json
     redis.ltrim REDIS_LIST, 0, 19
 
