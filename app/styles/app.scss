@@ -1,5 +1,22 @@
 @import "picnic";
 
+body {
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+}
+
+th {
+  font-weight: normal;
+}
+
+.c-page-header {
+  text-align: center;
+
+  &__alternative {
+    color: #aaa;
+    font-weight: normal;
+  }
+}
+
 .c-request {
   max-width: 1000px;
   margin: 0 auto;
