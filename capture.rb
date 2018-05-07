@@ -2,6 +2,7 @@ require 'sinatra'
 require 'byebug'
 require 'redis'
 require 'json'
+require 'active_support/json'
 require 'fast_jsonapi'
 
 class Capture < Sinatra::Base
