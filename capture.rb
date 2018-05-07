@@ -48,6 +48,7 @@ class Capture < Sinatra::Base
   configure do
     set :redis, Redis.new
     set :public_folder, File.expand_path('dist')
+    set :connections, []
   end
 
   def redis
@@ -74,17 +75,31 @@ class Capture < Sinatra::Base
           .flatten
     ]
 
-    redis.lpush REDIS_LIST, {
+    request_json = {
       id: SecureRandom.uuid,
       headers: headers,
       body: body,
       method: request.request_method,
       path: request.path_info,
       received_at: Time.now.utc,
-    }.to_json
+    }.as_json
+
+    redis.lpush REDIS_LIST, request_json.to_json
     redis.ltrim REDIS_LIST, 0, 19
 
+    event_data = RequestSerializer.new(
+      Request.new(request_json)
+    ).serialized_json
+
+    settings.connections.each { |out| out << "data: #{event_data}\n\n" }
     200
+  end
+
+  get '/api/requests', provides: 'text/event-stream' do
+    stream :keep_open do |out|
+      settings.connections << out
+      out.callback { settings.connections.delete(out) }
+    end
   end
 
   get '/api/requests' do

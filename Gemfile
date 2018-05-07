@@ -8,3 +8,4 @@ gem 'redis'
 gem 'sass'
 gem 'shotgun', groups: %i[development test]
 gem 'sinatra'
+gem 'thin'
