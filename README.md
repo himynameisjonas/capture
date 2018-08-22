@@ -4,6 +4,8 @@ Caputure web requests, like webhooks, for debugging. With realtime updates!
 
 ## Installation
 
+*Requires a running redis instance on localhost.*
+
 * `yarn install`
 * `bundle install`
 * start with a `Procfile` runner
